@@ -262,14 +262,14 @@
 	Because most recording engineers use equalization (EQ), amplitude dynamic range compression (compressor), and ambience (reverb), the G9 will have each of those modules.
 	
 	\subsection{EQ}
-	The EQ in the G9 will have high and low shelving filters based on a Baxandall circuit; Figure \ref{fig:baxandall} shows the circuit and its frequency response. It will also have a parametric midrange boost/cut with adjustable frequency. 
+	The EQ in the G9 will have high and low shelving filters. It will also have a parametric midrange boost/cut with adjustable frequency. Its circuit is shown in figure~\cite{espEq}.
 	
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=2.5in]{baxandall}
-		\caption{Baxandall filter circuit and frequency response~\cite{baxandall}. }
-		\label{fig:baxandall}
+		\includegraphics[width=3in]{eq}
+		\caption{EQ filter circuit~\cite{espEq}. }
+		\label{fig:eq}
 	\end{figure}
 	
 	\subsection{Compressor}
@@ -349,7 +349,7 @@
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=2.5in]{blockDiagram}
+		\includegraphics[width=3in]{blockDiagram}
 		\caption{Block diagram of the G9. }
 		\label{fig:blockDiagram}
 	\end{figure}
@@ -360,6 +360,14 @@
 		\includegraphics[width=2.5in]{g9Enclosure}
 		\caption{Mockup of the G9's enclosure. }
 		\label{fig:g9Enclosure}
+	\end{figure}
+	
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=3in]{hdmiDisplay}
+		\caption{HDMI display for the enclosure \cite{hdmiDisplay}. }
+		\label{fig:hdmiDisplay}
 	\end{figure}
 	
 	\section{Tasks}
@@ -389,16 +397,166 @@
 	The G9 is highly modular. Each piece can be tested on its own to ensure it functions correctly before attempting to combine all the elements together. GUI, CPU, FPGA, display, EQ, compressor, reverb will all be tested on their own. When each component is functioning correctly on its own, then the pieces will be connected together one-by-one and tested.
 	
 	\section{Demo}
-	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of a more in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
+	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of an in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
 	
 	
 	\section{Conclusion}
 	Digital audio signal processors have processing latencies on the order of milliseconds. When multiple processors are used in recording studios, their interacting latencies can cause comb filtering or lengthy delays in the signals being processed. Analog audio processors have latencies on the order of nanoseconds and also are often preferred for the character of the sounds they produce. The problem with analog processors is that their controls are often manually operated potentiometers and switches. Some companies in the past have created products that take a hybrid analog/digital approach, but currently no product is available that maintains a fully analog audio signal path incorporating the main processing blocks desired by sound engineers. The G9 processor has the three main processing blocks of EQ, compressor, and reverb, and takes advantage of the low latency and sound quality of analog processing with the convenience and repeatability of digital control.
 	
+	\appendix
+	Tables \ref{tab:compressorParts} - \ref{tab:powerSupplies} list additional parts needed for the project. It is anticipated that more parts will be required as needed.
 	
 	
 	
+	\begin{table}[]
+		\centering
+		\caption{Compressor Parts}
+		\label{tab:compressorParts}
+		\begin{tabular}{l|l}
+			Part                           & Qty. \\\hline
+			Schottky Diode 1200V, 5A              & 2          \\
+			450V 40uF                             & 4          \\
+			50volts 47uF                          & 1          \\
+			500pF 500V                            & 2          \\
+			150pF 500V                            & 2          \\
+			2watts 1Mohms                         & 2          \\
+			Lamp 65VAC .7mA NE-2E                 & 1          \\
+			XLR Connectors 3Pin male                & 1          \\
+			XLR Connectors 3Pin female              & 1          \\
+			AC Power Socket and fuse              & 1          \\
+			Toggle SPST ON-OFF                    & 2          \\
+			Toggle DPDT ON ON                     & 1          \\
+			Terminals LUG LOCK                    & 10         \\
+			AC Power Cord 18AWG                   & 1          \\
+			3/8"SQ 1Mohms Multi Turn              & 3          \\
+			1/2watt 220K                          & 5          \\
+			1/2watt 33K                           & 3          \\
+			1/2watt 330K                          & 1          \\
+			1/2watt 3.9K                          & 2          \\
+			1/2watt 2.7K                          & 1          \\
+			3watts 4.7Kohms                       & 1          \\
+			3 WATT 22K                            & 1          \\
+			1watt 24K                             & 1          \\
+			Fuse 250V 1A Slo-Blo                  & 4          \\
+			450V 10uF                             & 1          \\
+			3/8"SQ 100Kohms Multi Turn            & 1          \\
+			Rectifier Vr/1000V Io/1A              & 2          \\
+			400V .1uF                             & 2          \\
+			400Volts 100000pF                     & 4          \\
+			400Volts 22000pF                      & 3          \\
+			600Volts 1000pF                       & 1          \\
+			400Volts 10000pF                      & 3          \\
+			Terminal Blocks 10P 5.08mm 90DEG      & 1          \\
+			Terminal Blocks 3P 5.08mm 90DEG       & 3          \\
+			Terminal Blocks 2P 5.08mm 90DEG       & 3          \\
+			3watts 470K                           & 1          \\
+			Terminal Blocks 2P 5.08mm 40DEG       & 5          \\
+			1/2watt 47K                           & 1          \\
+			1/2watt 10K                           & 2          \\
+			1/2W 68K                              & 4          \\
+			1/2watt 100K                          & 1          \\
+			1/2watt 470K                          & 5          \\
+			2watts 100ohms                        & 2          \\
+			Rotary Switches                       & 1          \\
+			2watts 3.9K                           & 1          \\
+			2watts 6.8K                           & 1          \\
+			1watt 22K                             & 2          \\
+			1watt 1.5K                            & 1          \\
+			Audio output transformer              & 1          \\
+			Audio input transformer               & 1          \\
+			Power transformer                     & 1          \\
+			Photo cell                            & 1          \\
+			Rectifier tube                        & 1          \\
+			Amplifier tube                        & 1          \\
+			Amplifier tube                        & 2          \\
+			Amplifier tube                        & 1          \\
+			8 pin tube socket for 5AR4 and T4B    & 2          \\
+			9 pin tube socket for 12BH7 and 12AX7 & 3          \\
+			7 pin tube socket for 6AQ5            & 1         
+		\end{tabular}
+	\end{table}
 	
+	\begin{table}[]
+		\centering
+		\caption{Reverb Parts}
+		\label{tab:reverbParts}
+		\begin{tabular}{ll|l}
+			Part                             &  & Qty. \\ \hline
+			
+			1/2watt 1k2                               &  & 3          \\
+			1/2watt 39k                               &  & 6          \\
+			1/2watt 10k                               &  & 3          \\
+			1/2watt 470                               &  & 3          \\
+			1/2watt 100k                              &  & 3          \\
+			100k potentiometer                &  & 3          \\
+			25V 10u                               &  & 9          \\
+			BC549 transistor                  &  & 3          \\
+			TL071 op-amp                      &  & 3          \\
+			Etymotic ER4 drivers              &  & 1          \\
+			Panasonic electret mic            &  & 1          \\
+			100' Orbit drip irrigation tubing &  & 1          \\
+			Accutronics spring reverb tank    &  & 1         
+		\end{tabular}
+	\end{table}
+
+
+	\begin{table}[]
+		\centering
+		\caption{EQ Parts}
+		\label{tab:eq}
+		\begin{tabular}{l|l}
+			Part                               & Qty. \\ \hline
+			1/2watt 100k  & 1 \\ 
+			1/2watt 470   & 5 \\
+			1/2watt 2k7   & 2 \\
+			1/2watt 100   & 1 \\
+			1/2watt 47k   & 3 \\
+			1u            & 2 \\
+			22n           & 3 \\
+			10n           & 2 \\
+			47n           & 1 \\
+			150n          & 1 \\
+			NE5532 op-amp & 2 \\
+			TL072 op-amp  & 3
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[]
+		\centering
+		\caption{Enclosure Parts}
+		\label{tab:enclosure}
+		\begin{tabular}{l|l}
+			Part                               & Qty. \\ \hline
+			HDMI 5" 800x480    & 1  \\
+			Raspberry Pi 0W    & 1  \\
+			Rotary Encoder     & 1  \\
+			MAX7219 LED driver & 1  \\
+			Red LED            & 4  \\
+			Yellow LED         & 6  \\
+			Green LED          & 11 \\
+			1/2watt 470        & 6  \\
+			3 rack space enclosure & 2
+		\end{tabular}
+	\end{table}
+
+
+	\begin{table}[]
+		\centering
+		\caption{Power Supplies}
+		\label{tab:powerSupplies}
+		\begin{tabular}{l|l|l}
+						Part                    &           & Qty. \\ \hline
+			Model     & Manufacturer     & Notes          \\
+			CUT75-5FF & TDK Lambda       & +/- 15V, +5V    \\
+			ZPSA40-30 & TDK Lambda       & +30V           \\
+			Ultimate  & Drip Electronics & 6.3VAC, 550VAC \\
+			Fifth Rail  & Group 9 & -5V
+		\end{tabular}
+	\end{table}
+
+
+	
+
 	
 	% Can use something like this to put references on a page
 	% by themselves when using endfloat and the captionsoff option.

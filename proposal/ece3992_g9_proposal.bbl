@@ -52,10 +52,10 @@ Arturia. Microbrute. [Online]. Available:
   \url{https://www.arturia.com/products/hardware-synths/microbrute}
 \BIBentrySTDinterwordspacing
 
-\bibitem{baxandall}
+\bibitem{espEq}
 \BIBentryALTinterwordspacing
-R.~Elliott. Designing with opamps - part 2. [Online]. Available:
-  \url{http://sound.whsites.net/dwopa2.htm}
+R.~Elliott. Parametric and sub-woofer equaliser. [Online]. Available:
+  \url{http://sound.whsites.net/project28.htm}
 \BIBentrySTDinterwordspacing
 
 \bibitem{opto7}
@@ -80,6 +80,12 @@ Reverb. [Online]. Available:
 \BIBentryALTinterwordspacing
 R.~Elliott. Low noise microphone preamplifier. [Online]. Available:
   \url{http://sound.whsites.net/project13.htm}
+\BIBentrySTDinterwordspacing
+
+\bibitem{hdmiDisplay}
+\BIBentryALTinterwordspacing
+{HDMI 4 PI: 5" DISPLAY (NO TOUCH) W/MINI DRIVER - 800X480 HDMI}. [Online].
+  Available: \url{https://www.adafruit.com/product/1928}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
