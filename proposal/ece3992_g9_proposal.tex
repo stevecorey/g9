@@ -332,6 +332,13 @@
 		\caption{Reverb amplifiers~\cite{espMicPreSpringDrive}. }
 		\label{fig:espMicPreSpringDrive}
 	\end{figure}
+
+	\subsection{Enclosure}
+	The G9 processor will be contained in an enclosure made of both metal and a clear acrylic.  The compressor circuit requires a metal casing to connect to ground.  This allows for greater safety with the high voltages introduced in that circuit for the tube amps.  The compressor and the rest of the project will be contained in a case made out of laser cut acrylic.  The clear polished look will make the internal circuits visible, and give a nice clean look for the enclosure itself.  The only components that will be outward facing are the power supply cord, the audio jacks, the LEDs to display the current signal level, and the small HDMI screen we are using to display the frequency spectrum of the audio signal.  
+	
+	The G9 processor will plug into a standard wall plug to generate the voltages it needs using a few different power supplies.  We need to ensure we have the low +30V, +/- 15V,  and +/- 5V for the raspberry pi and filters, and the high voltage for the compressor’s tube circuit.  The HDMI screen is a 5” screen that we will be connecting to the raspberry pi to display the frequency spectrum of the audio signal as it runs through the processor.  
+	
+	
 	
 	\subsection{Digital Control}
 	A graphical user interface (GUI) will run on a separate computer to send control signals to the G9's processing blocks. The computer will maintain the state of the system and be able to store and recall the state at any time. Figure \ref{fig:gui} shows a mockup of the G9's GUI.
@@ -400,8 +407,14 @@
 	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of an in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
 	
 	
-	\section{Conclusion}
-	Digital audio signal processors have processing latencies on the order of milliseconds. When multiple processors are used in recording studios, their interacting latencies can cause comb filtering or lengthy delays in the signals being processed. Analog audio processors have latencies on the order of nanoseconds and also are often preferred for the character of the sounds they produce. The problem with analog processors is that their controls are often manually operated potentiometers and switches. Some companies in the past have created products that take a hybrid analog/digital approach, but currently no product is available that maintains a fully analog audio signal path incorporating the main processing blocks desired by sound engineers. The G9 processor has the three main processing blocks of EQ, compressor, and reverb, and takes advantage of the low latency and sound quality of analog processing with the convenience and repeatability of digital control.
+	\section{Summary}
+	Analog audio processors provide minimal delay, however they do not allow for digital control.  Digital processors provide digital control, but they can introduce an audible delay into the audio signal.  The G9 audio processor will combine minimal delay of an analog signal path with the digital control of a computer to provide ease of use.  Some of the main benefits include: restorable sound settings, integration with other digital sound equipment, and wireless control of sound settings.
+	
+	The G9 processor consists of three audio filters. The first is a simple parametric equaliser that allows for 4 band selection.  We will be using the equaliser circuit as given by Elliott Sound Products~\cite{espEq}.  The second, a compressor circuit, uses tube amps and requires high voltages to utilize the amp.  We will be using the circuit from Drip Electronics~\cite{opto7}. The last filter is the reverb circuit  To create this circuit, we plan on using a hose to give a small delay to produce early reverb reflections, and then a spring to produce late reverb reflections.
+	
+	A Raspberry Pi W microprocessor (Rpi) will integrate each of the audio filters, a control server, and a frequency spectrum analyzer.  Hosting a server, the Rpi will control each of the audio filters as requested by a wireless GUI connected to it.  The filters can be controlled by using I2C communications with digital potentiometer ICs that are contained within.  C code that can run the necessary spectrum analysis, contained in the FFTW C library, will be running on the Rpi and providing its data to an HDMI driven display on the enclosure of the G9.  The spectrum analyzer will display the frequency spectrum to a 256-point resolution. We plan on completing the processor’s individual components over the summer and bringing everything together as fall semester begins. 
+	
+	
 	
 	\appendix
 	Tables \ref{tab:compressorParts} - \ref{tab:powerSupplies} list additional parts needed for the project. It is anticipated that more parts will be required as needed.
