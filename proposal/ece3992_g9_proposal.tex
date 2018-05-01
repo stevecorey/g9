@@ -363,7 +363,7 @@
 	\end{figure}
 	
 	
-	\section{Digital Potentiometers}
+	\subsection{Digital Potentiometers}
 	To maintain an analog signal path while simultaneously modifying analog parameters with digital controls, each audio filter will be using digital potentiometer ICs.  Digital potentiometers can produce very similar result to analog potentiometers, however they also allow for digital control over a serial interface, I2C in our case.  The G9 processor will be using the AD5144 and the AD5342 digital potentiometers.  The first has 4 potentiometers on board, allowing us to use fewer I2C lines, and the second only has 2.  We need to use the second as well because the 1M digital potentiometers do not come in packages of more than 2. These digital potentiometers allow for us to alter the parameters of the analog filters, in the case of the EQ, we can select the target frequencies and the cut or boost for those frequencies.
 	
 
@@ -407,7 +407,7 @@
 	
 	Tables \ref{tab:owners} and \ref{tab:milestones} give a broad overview of responsibilities in the project. Everyone will be flexible regarding the work they do and frequent communication is vital, but final decisions regarding components will fall to the component owner.
 	
-	\begin{table}[H]
+	\begin{table}[]
 		\centering
 		\caption{Component Owners}
 		\label{tab:owners}
@@ -422,7 +422,7 @@
 		\end{tabular}
 	\end{table}
 
-	\begin{table}[H]
+	\begin{table}[]
 		\centering
 		\caption{Milestones}
 		\label{tab:milestones}
