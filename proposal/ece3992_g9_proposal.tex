@@ -181,7 +181,7 @@
 	% As a general rule, do not put math, special symbols or citations
 	% in the abstract or keywords.
 	\begin{abstract}
-		In a recording studio, fully analog processors are well-loved for how they can alter the recorded audio. These audio processors have characteristics that change sound to feel thicker, warmer, or airier among other effects.  While the latency of analog processors is minimal, their controls are manual, making them difficult to use in a computer-based environment.  Digital signal processors (DSPs) provide easier control as well as the ability to save and restore the state of those controls, however DSPs greatly increase the latency of the system.  To utilize the best of both types of signal processors,  we are creating an all-analog processing device under digital control such that every parameter the user can control is storable, automatable, and recallable.  This connection between analog processing and digital control can be made by replacing manually operated potentiometers with digitally controlled potentiometer ICs. The user interface will run on a separate computer, sending parameters to the analog processor. It will have modules for equalization, dynamics, harmonic generation, and ambience to cover the needs of most audio engineering tasks and will give sound engineers the ability to easily use presets and remotely control the device.
+		In a recording studio, fully analog processors are well-loved for how they can alter the recorded audio. These audio processors have characteristics that change sound to feel thicker, warmer, or airier among other effects.  While the latency of analog processors is minimal, their controls are manual, making them difficult to use in a computer-based environment.  Digital signal processors (DSPs) provide easier control as well as the ability to save and restore the state of those controls, however DSPs greatly increase the latency of the system.  To utilize the best of both types of signal processors,  we are creating an all-analog processing device under digital control such that every parameter the user can control is storable, automatable, and recallable.  This connection between analog processing and digital control can be made by replacing manually operated potentiometers with digitally controlled potentiometer ICs. The user interface will run on a separate computer, sending parameters to the analog processor. It will have modules for equalization, dynamics, harmonic generation, and ambiance to cover the needs of most audio engineering tasks and will give sound engineers the ability to easily use presets and remotely control the device.
 	\end{abstract}
 	
 	% Note that keywords are not normally used for peerreview papers.
@@ -224,11 +224,11 @@
 	% and "HIS" in caps to complete the first word.
 	
 	\IEEEPARstart{R}{ecording}  engineers use a wide variety of audio signal processors in recording studios to achieve the sounds
-	they desire. Digital processors offer a flexible and economical method to achieve virtually any effect imaginable. The problem with digital signal processing is the signal’s latency: digital processing requires converting an analog signal to a digital bitstream.
+	they desire. Digital processors offer a flexible and economical method to achieve virtually any effect imaginable. The problem with digital signal processing is the signal's latency: digital processing requires converting an analog signal to a digital bit stream
 	
 	If two digital processors have different latencies, using them in parallel can result in the severe comb filtering caused when summing two signals with a different delay. Depending on the amount of processing desired, the final latency of a serial chain of digital processors can be in the hundreds of milliseconds. That might not sound like a lot, but musicians and audio engineers are sensitive to even the slightest delays. In order to keep latency to a minimum, an all analog signal path for the audio must be maintained, but this means giving up digital control. 
 	
-	Analog audio signal processing has extremely low latency on the order of nanoseconds, and it is well-loved by recording engineers for the character of the sound that can be obtained. Vacuum tube circuits in particular are loved for the distortion effect they produce when the voltage of the signal is amplified beyond the circuit’s linear zone. Integrating analog signal processors into a modern digital recording studio’s workflow becomes difficult because of the manual controls for each processor. During a recording session, the parameters of a recording studio’s processing chain need to be saved and recalled at a moment’s notice. The G9 project takes a hybrid analog/digital approach. It will maintain an all analog audio signal path, but the adjustable processing parameters will be digitally controlled. Using the strengths of each method, the G9 project will overcome the weaknesses of the other.
+	Analog audio signal processing has extremely low latency on the order of nanoseconds, and it is well-loved by recording engineers for the character of the sound that can be obtained. Vacuum tube circuits in particular are loved for the distortion effect they produce when the voltage of the signal is amplified beyond the circuit's linear zone. Integrating analog signal processors into a modern digital recording studio's workflow becomes difficult because of the manual controls for each processor. During a recording session, the parameters of a recording studio's processing chain need to be saved and recalled at a moment's notice. The G9 project takes a hybrid analog/digital approach. It will maintain an all analog audio signal path, but the adjustable processing parameters will be digitally controlled. Using the strengths of each method, the G9 project will overcome the weaknesses of the other.
 	
 	
 	\section{Background}
@@ -259,10 +259,17 @@
 	
 	\section{Project Scope}
 	
-	Because most recording engineers use equalization (EQ), amplitude dynamic range compression (compressor), and ambience (reverb), the G9 will have each of those modules.
+	Because most recording engineers use equalization (EQ), amplitude dynamic range compression (compressor), and ambiance (reverb), the G9 will have each of those modules. Figure \ref{fig:blockDiagram} shows a block diagram of the G9.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=3in]{blockDiagram}
+		\caption{Block diagram of the G9. }
+		\label{fig:blockDiagram}
+	\end{figure}
 	
 	\subsection{EQ}
-	The equaliser in the G9 processor will be based on the Parametric Equaliser and Subwoofer as described by Rod Elliott~\cite{espEq}.  Its circuit diagram is shown in figure \ref{fig:eq}.  This parametric equaliser has four bands that can be cut or boosted up to about 14dB using the 10k potentiometers.  Each of the three 1M potentiometers can be used to select the target freqeuncy for the band.  The Bass can select from 35Hz to 150Hz, the low mid can select 120Hz to 550 Hz, the high mid can select 550 Hz to 2.2KHz, while the treble will be locked on 5KHz.  The op amps that will be used in the circuit are the NE5532, for the input and output op amps, and the TL072 for the others.  The NE5532 produces low noise and so will be needed on the input and output, where the audio signal will be traveling.
+	The equalizer in the G9 processor will be based on the Parametric Equalizer and Subwoofer as described by Rod Elliott~\cite{espEq}.  Its circuit diagram is shown in figure \ref{fig:eq}.  This parametric equalizer has four bands that can be cut or boosted up to about 14dB using the 10k potentiometers.  Each of the three 1M potentiometers can be used to select the target frequency for the band.  The Bass can select from 35Hz to 150Hz, the low mid can select 120Hz to 550 Hz, the high mid can select 550 Hz to 2.2kHz, while the treble will be locked on kHz  The op amps that will be used in the circuit are the NE5532, for the input and output op amps, and the TL072 for the others.  The NE5532 produces low noise and so will be needed on the input and output, where the audio signal will be traveling.
 	
 	The greatest difference between our circuit and the one shown in figure \ref{fig:eq} will be the digital potentiometer ICs in place of the potentiometers.  The ICs will allow for the Raspberry Pi (Rpi) to control the cut and boost as well as the target frequency for the circuit.  Other than that, the power rails will contain additional capacitors to ensure there is little fluctuation in the supply.
 	
@@ -307,7 +314,7 @@
 	\subsection{Reverb}
 	Reverb options are limited in the analog domain. The favored option is to place a loudspeaker in one part of a reverberant chamber and place a microphone in another part. When sound is played through the loudspeaker it is reverberated by the chamber and picked up by the microphone. Reverb of this sort is not feasibly placed inside an enclosure for use in a studio. 
 	
-	The sound of reverb is generally divided into two parts: early reflections and late reflections~\cite{earlyReflections}. Early reflections are heard as discrete echos, as when sound bounces off the walls of a chamber. Late reflections are heard after the early reflections as the early reflections build up and fuse into a wash of sound. This part of the reverb is also known as the tail. The time it takes for the tail to fade by 60 dB below the initial sound level is specified as the reverb time. The G9 will combine two methods to achieve a simulation of the chamber's early reflections and reverb tail.
+	The sound of reverb is generally divided into two parts: early reflections and late reflections~\cite{earlyReflections}. Early reflections are heard as discrete echoes, as when sound bounces off the walls of a chamber. Late reflections are heard after the early reflections as the early reflections build up and fuse into a wash of sound. This part of the reverb is also known as the tail. The time it takes for the tail to fade by 60 dB below the initial sound level is specified as the reverb time. The G9 will combine two methods to achieve a simulation of the chamber's early reflections and reverb tail.
 	
 	\begin{figure}
 		\centering
@@ -339,12 +346,14 @@
 	\subsection{Enclosure}
 	The G9 processor will be contained in an enclosure made of both metal and a clear acrylic.  The compressor circuit requires a metal casing to connect to ground.  This allows for greater safety with the high voltages introduced in that circuit for the tube amps.  The compressor and the rest of the project will be contained in a case made out of laser cut acrylic.  The clear polished look will make the internal circuits visible, and give a nice clean look for the enclosure itself.  The only components that will be outward facing are the power supply cord, the audio jacks, the LEDs to display the current signal level, and the small HDMI screen we are using to display the frequency spectrum of the audio signal.  
 	
-	The G9 processor will plug into a standard wall plug to generate the voltages it needs using a few different power supplies.  We need to ensure we have the low voltage +30V, +/- 15V,  and +/- 5V for the Rpi and filters, and the high voltage for the compressor’s tube circuit.  The HDMI screen is a 5'' screen that we will be connecting to the Rpi to display the frequency spectrum of the audio signal as it runs through the processor.  
+	The G9 processor will plug into a standard wall plug to generate the voltages it needs using a few different power supplies.  We need to ensure we have the low voltage +30V, +/- 15V,  and +/- 5V for the Rpi and filters, and the high voltage for the compressor's tube circuit.  The HDMI screen is a 5'' screen that we will be connecting to the Rpi to display the frequency spectrum of the audio signal as it runs through the processor.  
 	
 	
 	
 	\subsection{Digital Control}
-	A graphical user interface (GUI) will run on a separate computer to send control signals to the G9's processing blocks. The computer will maintain the state of the system and be able to store and recall the state at any time. Figure \ref{fig:gui} shows a mockup of the G9's GUI.
+	Digital control over each module will be dictated by the user through a Graphical User Interface which communicates with the Rpi over a TCP network.  The Rpi will operate a server which may grant a client request or update the client on changes to physical controls of the G9 enclosure.  The client represents the user and the changes made by the user to the user interface will become requests to the server.  In addition to simply granting requests, the Rpi will schedule processes such as I2C communication tasks, spectrum analysis tasks and client request tasks in a manner that prioritizes responsiveness to the user.  Additionally, the physical controls of the G9 (dials) will represent the current setting of the input and output levels with an array of LEDs surrounding each control.  Requested changes that are granted to the client will be reflected in the LEDs to keep software and hardware interfaces in sync.  Because each module has different parameters, the physical interface and software interface can dynamically change to represent the settings of each respective module.
+	
+	
 	
 	\begin{figure}
 		\centering
@@ -354,16 +363,10 @@
 	\end{figure}
 	
 	
-	\section{Design Approach}
-	The G9 will utilize digital potentiometer ICs to control the parameters of its signal processors.  These ICs will be communicated to through I\textsuperscript{2}C or another serial protocol. An FPGA will provide processing for a graphical display separate from the GUI. The graphical display will show information about the sound level and frequency spectrum of the output audio signal itself. The GUI will have slider controls and show the state of the G9. A Rpi and will act as the CPU and take control signals from the GUI and route them to the appropriate digital potentiometers. Figure \ref{fig:blockDiagram} shows a block diagram of the G9.
+	\section{Digital Potentiometers}
+	To maintain an analog signal path while simultaneously modifying analog parameters with digital controls, each audio filter will be using digital potentiometer ICs.  Digital potentiometers can produce very similar result to analog potentiometers, however they also allow for digital control over a serial interface, I2C in our case.  The G9 processor will be using the AD5144 and the AD5342 digital potentiometers.  The first has 4 potentiometers on board, allowing us to use fewer I2C lines, and the second only has 2.  We need to use the second as well because the 1M digital potentiometers do not come in packages of more than 2. These digital potentiometers allow for us to alter the parameters of the analog filters, in the case of the EQ, we can select the target frequencies and the cut or boost for those frequencies.
 	
-	\begin{figure}
-		\centering
-		\includegraphics[width=3in]{blockDiagram}
-		\caption{Block diagram of the G9. }
-		\label{fig:blockDiagram}
-	\end{figure}
-	
+
 	Figure \ref{fig:g9Enclosure} shows a mockup of the G9's enclosure. It will have LED meters showing input and output signal levels, an LED meter showing the compressor's gain reduction, and an LED meter showing the reverb's wet/dry signal balance. It will also have two rotary encoders to adjust the signal level going into the processor and the signal level coming out of the processor. The rotary encoders will allow for the changes to be saved with the GUI as well as for the state to be loaded easily.
 	\begin{figure}
 		\centering
@@ -384,8 +387,8 @@
 	\section{Design Challenges and Risks}
 	In designing the G9 Processor, we have found several aspects of the project that may prove to be a challenge.  What follows is a list of these challenges and an explanation of each:
 	\begin{itemize}
-		\item \textbf{Latency}: With the Rpi performing as many tasks as it will be, I2C, network communication, audio signal analysis, the latency between changing a parameter on the GUI and the change propigating to the device may be noticable.
-		\item \textbf{Frequency Spectum Display}: Although we have found a C library that can perform the necessary FFT on the incoming audio signal, we still need to find a way to place the result into a nice format such that it can be display on the small HDMI screen we have.
+		\item \textbf{Latency}: With the Rpi performing as many tasks as it will be, I2C, network communication, audio signal analysis, the latency between changing a parameter on the GUI and the change propagating to the device may be noticeable.
+		\item \textbf{Frequency Spectrum Display}: Although we have found a C library that can perform the necessary FFT on the incoming audio signal, we still need to find a way to place the result into a nice format such that it can be display on the small HDMI screen we have.
 		\item \textbf{I2C Communication}: I2C is a simple communication protocol, but we will be filling the I2C lines on our Rpi and it may be a small challenge to ensure we address each device and the registers in each device correctly.
 		\item \textbf{Multiple Power Rails}: We are using several different circuits and many of the components we are using require different power supplies.  Coordinating each of the different power rails may prove to be a challenge.
 		\item \textbf{High Voltages}: The G9 processor's compressor circuit is built using tube amps.  They require very high voltages to function, on the ranges of 600 VAC and 250 VDC.  Ensuring these voltages will not cause problems, and that we stay safe when using them will be a challenge.
@@ -394,15 +397,15 @@
 	There are a number of risks with the G9 processor, and the first is deals with the compressor circuit.  When building the compressor we will need to ensure care is taken so that none of the team members are injured and that the circuit survives.  The primary caution will be to keep it unconnected to the power until the circuit is fully constructed and has been tested for shorts.  In the event that the circuit is burnt out by the high voltages we can resort to using a solid state compressor in the processor.  Ordering parts and soldering provide another risk.  The parts must be ordered early and with spares to account for long delivery times and burning out components as we construct the processor.  The last risk is that the Raspberry Pi Zero W may not be able to perform all the tasks we need it to accomplish.  It may not have enough power to perform the FFT or may not be able to handle the I2C communication.  In this case, we can add one of our STM32F0 discovery boards to the project to ensure it will be completed on time.
 	
 	\section{Milestones and Progress}
-	The G9 processor is to be completed by the end of November of 2018.  On the path towards that completion, we need to assemble and test each of the filters and then interface with the contained digital potentiometers with the Rpi.  Additionally, a GUI will need to be designed and communicating with the Rpi and the Rpi needs to perform an FFT on the audio signal to display the frequency sprectum.  
+	The G9 processor is to be completed by the end of November of 2018.  On the path towards that completion, we need to assemble and test each of the filters and then interface with the contained digital potentiometers with the Rpi.  Additionally, a GUI will need to be designed and communicating with the Rpi and the Rpi needs to perform an FFT on the audio signal to display the frequency spectrum.  
 	
 	The first of these steps, constructing each of the filters and then getting some communication with the Rpi is planned to completed over the summer.  At the start of the fall semester, we plan on having individual parts all constructed.  We will spend the semester bringing everything together and debugging the code we have.
 	
-	We have made a little progress in achieving this goal.  The EQ circuit has been built and tested and its next step is constructing a PCB.  The compressor's PCBs have already been aquired and the transformers are on their way.  Its other parts still need to be ordered.  The reverb circuit has been designed, though we only have the hose and the spring for it.  The Raspberry Pi Zero W has been ordered and is on its way, and we have found a C library that we can use to perform the FFT to display on a small HDMI screen we already have.
+	We have made a little progress in achieving this goal.  The EQ circuit has been built and tested and its next step is constructing a PCB.  The compressor's PCBs have already been acquired and the transformers are on their way.  Its other parts still need to be ordered.  The reverb circuit has been designed, though we only have the hose and the spring for it.  The Raspberry Pi Zero W has been ordered and is on its way, and we have found a C library that we can use to perform the FFT to display on a small HDMI screen we already have.
 	
-	\section{Tasks}
+	\subsection{Tasks}
 	
-	Tables \ref{tab:owners} and \ref{tab:milestones} give a broad overview of responsibilities in the project. Everyone will be flexible and frequent communication is vital, but final decisions regarding components will fall to the component owner.
+	Tables \ref{tab:owners} and \ref{tab:milestones} give a broad overview of responsibilities in the project. Everyone will be flexible regarding the work they do and frequent communication is vital, but final decisions regarding components will fall to the component owner.
 	
 	\begin{table}[H]
 		\centering
@@ -434,9 +437,6 @@
 		\end{tabular}
 	\end{table}
 	
-	\section{Mentors and Resources}
-	Through this initial design phase, Dr. Erik Brunvand, Dr. Pierre-Emmanuel Gaillardon, and Dr. Angela Rassmussen have provided valuable advice. We anticipate needing more guidance from them during the construction phase. Adam Weinstein provided excellent critiques of our writing and we'll be sad to lose him as the TA---if in fact that is the case moving forward to Fall Semester. Drip Electronics provides support for assembling the compressor. There are many online forums that cover various aspects of our project and we anticipate utilizing them.
-	
 
 
 	
@@ -446,13 +446,17 @@
 	\section{Demo}
 	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. A separate room for the demo is desired since it might get loud. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of an in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
 	
+	\section{Mentors and Resources}
+	Through this initial design phase, Dr. Erik Brunvand, Dr. Pierre-Emmanuel Gaillardon, and Dr. Angela Rassmussen have provided valuable advice. We anticipate needing more guidance from them during the construction phase. Adam Weinstein provided excellent critiques of our writing and we'll be sad to lose him as the TA, if in fact that is the case moving forward to fall semester. Drip Electronics provides support for assembling the compressor. There are many online forums that cover various aspects of our project and we will be utilizing them.
+	
+	
 	
 	\section{Summary}
 	Analog audio processors provide minimal delay, however they do not allow for digital control.  Digital processors provide digital control, but they can introduce an audible delay into the audio signal.  The G9 audio processor will combine minimal delay of an analog signal path with the digital control of a computer to provide ease of use.  Some of the main benefits include: restorable sound settings, integration with other digital sound equipment, and wireless control of sound settings.
 	
-	The G9 processor consists of three audio filters. The first is a simple parametric equaliser that allows for 4 band selection.  We will be using the equaliser circuit as given by Elliott Sound Products~\cite{espEq}.  The second, a compressor circuit, uses tube amps and requires high voltages to utilize the amp.  We will be using the circuit from Drip Electronics~\cite{opto7}. The last filter is the reverb circuit  To create this circuit, we plan on using a hose to give a small delay to produce early reverb reflections, and then a spring to produce late reverb reflections.
+	The G9 processor consists of three audio filters. The first is a simple parametric equalizer that allows for 4 band selection.  We will be using the equalizer circuit as given by Elliott Sound Products~\cite{espEq}.  The second, a compressor circuit, uses tube amps and requires high voltages to utilize the amp.  We will be using the circuit from Drip Electronics~\cite{opto7}. The last filter is the reverb circuit  To create this circuit, we plan on using a hose to give a small delay to produce early reverb reflections, and then a spring to produce late reverb reflections.
 	
-	A Raspberry Pi W microprocessor will integrate each of the audio filters, a control server, and a frequency spectrum analyzer.  Hosting a server, the Rpi will control each of the audio filters as requested by a wireless GUI connected to it.  The filters can be controlled by using I2C communications with digital potentiometer ICs that are contained within.  C code that can run the necessary spectrum analysis, contained in the FFTW C library, will be running on the Rpi and providing its data to an HDMI driven display on the enclosure of the G9.  The spectrum analyzer will display the frequency spectrum to a 256-point resolution. We plan on completing the processor’s individual components over the summer and bringing everything together as fall semester begins. 
+	A Raspberry Pi W microprocessor will integrate each of the audio filters, a control server, and a frequency spectrum analyzer.  Hosting a server, the Rpi will control each of the audio filters as requested by a wireless GUI connected to it.  The filters can be controlled by using I2C communications with digital potentiometer ICs that are contained within.  C code that can run the necessary spectrum analysis, contained in the FFTW C library, will be running on the Rpi and providing its data to an HDMI driven display on the enclosure of the G9.  The spectrum analyzer will display the frequency spectrum to a 256-point resolution. We plan on completing the processor's individual components over the summer and bringing everything together as fall semester begins. 
 	
 	
 	
@@ -477,8 +481,6 @@
 			XLR Connectors 3Pin male                & 1          \\
 			XLR Connectors 3Pin female              & 1          \\
 			AC Power Socket and fuse              & 1          \\
-			Toggle SPST ON-OFF                    & 2          \\
-			Toggle DPDT ON ON                     & 1          \\
 			Terminals LUG LOCK                    & 10         \\
 			AC Power Cord 18AWG                   & 1          \\
 			3/8"SQ 1Mohms Multi Turn              & 3          \\
