@@ -262,7 +262,10 @@
 	Because most recording engineers use equalization (EQ), amplitude dynamic range compression (compressor), and ambience (reverb), the G9 will have each of those modules.
 	
 	\subsection{EQ}
-	The EQ in the G9 will have high and low shelving filters. It will also have a parametric midrange boost/cut with adjustable frequency. Its circuit is shown in figure~\cite{espEq}.
+	The equaliser in the G9 processor will be based on the Parametric Equaliser and Subwoofer as described by Rod Elliott~\cite{espEq}.  Its circuit diagram is shown in figure \ref{fig:eq}.  This parametric equaliser has four bands that can be cut or boosted up to about 14dB using the 10k potentiometers.  Each of the three 1M potentiometers can be used to select the target freqeuncy for the band.  The Bass can select from 35Hz to 150Hz, the low mid can select 120Hz to 550 Hz, the high mid can select 550 Hz to 2.2KHz, while the treble will be locked on 5KHz.  The op amps that will be used in the circuit are the NE5532, for the input and output op amps, and the TL072 for the others.  The NE5532 produces low noise and so will be needed on the input and output, where the audio signal will be traveling.
+	
+	The greatest difference between our circuit and the one shown in figure \ref{fig:eq} will be the digital potentiometer ICs in place of the potentiometers.  The ICs will allow for the Raspberry Pi (Rpi) to control the cut and boost as well as the target frequency for the circuit.  Other than that, the power rails will contain additional capacitors to ensure there is little fluctuation in the supply.
+	
 	
 	
 	\begin{figure}
@@ -336,7 +339,7 @@
 	\subsection{Enclosure}
 	The G9 processor will be contained in an enclosure made of both metal and a clear acrylic.  The compressor circuit requires a metal casing to connect to ground.  This allows for greater safety with the high voltages introduced in that circuit for the tube amps.  The compressor and the rest of the project will be contained in a case made out of laser cut acrylic.  The clear polished look will make the internal circuits visible, and give a nice clean look for the enclosure itself.  The only components that will be outward facing are the power supply cord, the audio jacks, the LEDs to display the current signal level, and the small HDMI screen we are using to display the frequency spectrum of the audio signal.  
 	
-	The G9 processor will plug into a standard wall plug to generate the voltages it needs using a few different power supplies.  We need to ensure we have the low +30V, +/- 15V,  and +/- 5V for the raspberry pi and filters, and the high voltage for the compressor’s tube circuit.  The HDMI screen is a 5” screen that we will be connecting to the raspberry pi to display the frequency spectrum of the audio signal as it runs through the processor.  
+	The G9 processor will plug into a standard wall plug to generate the voltages it needs using a few different power supplies.  We need to ensure we have the low voltage +30V, +/- 15V,  and +/- 5V for the Rpi and filters, and the high voltage for the compressor’s tube circuit.  The HDMI screen is a 5'' screen that we will be connecting to the Rpi to display the frequency spectrum of the audio signal as it runs through the processor.  
 	
 	
 	
@@ -352,7 +355,7 @@
 	
 	
 	\section{Design Approach}
-	The G9 will utilize digital potentiometer ICs to control the parameters of its signal processors.  These ICs will be communicated to through I\textsuperscript{2}C or another serial protocol. An FPGA will provide processing for a graphical display separate from the GUI. The graphical display will show information about the sound level and frequency spectrum of the output audio signal itself. The GUI will have slider controls and show the state of the G9. A Raspberry Pi and will act as the CPU and take control signals from the GUI and route them to the appropriate digital potentiometers. Figure \ref{fig:blockDiagram} shows a block diagram of the G9.
+	The G9 will utilize digital potentiometer ICs to control the parameters of its signal processors.  These ICs will be communicated to through I\textsuperscript{2}C or another serial protocol. An FPGA will provide processing for a graphical display separate from the GUI. The graphical display will show information about the sound level and frequency spectrum of the output audio signal itself. The GUI will have slider controls and show the state of the G9. A Rpi and will act as the CPU and take control signals from the GUI and route them to the appropriate digital potentiometers. Figure \ref{fig:blockDiagram} shows a block diagram of the G9.
 	
 	\begin{figure}
 		\centering
@@ -376,35 +379,72 @@
 		\caption{HDMI display for the enclosure \cite{hdmiDisplay}. }
 		\label{fig:hdmiDisplay}
 	\end{figure}
-	
-	\section{Tasks}
-	This is a list of the parts the project that will need to be completed.
-	
-	\begin{itemize}  
-		\item EQ circuit 
-		\item Compressor circuit
-		\item Reverb circuit
-		\begin{enumerate}
-			\item Speaker into tube
-			\item Microphone out of tube, piezo driver into spring
-			\item Pickup out of spring to be mixed into main signal
-		\end{enumerate}
-		\item Digital control of the processors
-		\item GUI
-		\item Control parameters from GUI to CPU
-		\item Control parameters from CPU to control signal generator
-		\item LED meters on the G9 enclosure
-		\item Rotary encoders and LEDs on the G9 enclosure
-		\item FPGA analysis of the audio signal for display
-		\item FPGA display driver
+
+	    
+	\section{Design Challenges and Risks}
+	In designing the G9 Processor, we have found several aspects of the project that may prove to be a challenge.  What follows is a list of these challenges and an explanation of each:
+	\begin{itemize}
+		\item \textbf{Latency}: With the Rpi performing as many tasks as it will be, I2C, network communication, audio signal analysis, the latency between changing a parameter on the GUI and the change propigating to the device may be noticable.
+		\item \textbf{Frequency Spectum Display}: Although we have found a C library that can perform the necessary FFT on the incoming audio signal, we still need to find a way to place the result into a nice format such that it can be display on the small HDMI screen we have.
+		\item \textbf{I2C Communication}: I2C is a simple communication protocol, but we will be filling the I2C lines on our Rpi and it may be a small challenge to ensure we address each device and the registers in each device correctly.
+		\item \textbf{Multiple Power Rails}: We are using several different circuits and many of the components we are using require different power supplies.  Coordinating each of the different power rails may prove to be a challenge.
+		\item \textbf{High Voltages}: The G9 processor's compressor circuit is built using tube amps.  They require very high voltages to function, on the ranges of 600 VAC and 250 VDC.  Ensuring these voltages will not cause problems, and that we stay safe when using them will be a challenge.
 	\end{itemize}
 	
+	There are a number of risks with the G9 processor, and the first is deals with the compressor circuit.  When building the compressor we will need to ensure care is taken so that none of the team members are injured and that the circuit survives.  The primary caution will be to keep it unconnected to the power until the circuit is fully constructed and has been tested for shorts.  In the event that the circuit is burnt out by the high voltages we can resort to using a solid state compressor in the processor.  Ordering parts and soldering provide another risk.  The parts must be ordered early and with spares to account for long delivery times and burning out components as we construct the processor.  The last risk is that the Raspberry Pi Zero W may not be able to perform all the tasks we need it to accomplish.  It may not have enough power to perform the FFT or may not be able to handle the I2C communication.  In this case, we can add one of our STM32F0 discovery boards to the project to ensure it will be completed on time.
+	
+	\section{Milestones and Progress}
+	The G9 processor is to be completed by the end of November of 2018.  On the path towards that completion, we need to assemble and test each of the filters and then interface with the contained digital potentiometers with the Rpi.  Additionally, a GUI will need to be designed and communicating with the Rpi and the Rpi needs to perform an FFT on the audio signal to display the frequency sprectum.  
+	
+	The first of these steps, constructing each of the filters and then getting some communication with the Rpi is planned to completed over the summer.  At the start of the fall semester, we plan on having individual parts all constructed.  We will spend the semester bringing everything together and debugging the code we have.
+	
+	We have made a little progress in achieving this goal.  The EQ circuit has been built and tested and its next step is constructing a PCB.  The compressor's PCBs have already been aquired and the transformers are on their way.  Its other parts still need to be ordered.  The reverb circuit has been designed, though we only have the hose and the spring for it.  The Raspberry Pi Zero W has been ordered and is on its way, and we have found a C library that we can use to perform the FFT to display on a small HDMI screen we already have.
+	
+	\section{Tasks}
+	
+	Tables \ref{tab:owners} and \ref{tab:milestones} give a broad overview of responsibilities in the project. Everyone will be flexible and frequent communication is vital, but final decisions regarding components will fall to the component owner.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Component Owners}
+		\label{tab:owners}
+		\begin{tabular}{l|l}
+			Component                     & Owner \\ \hline
+			EQ                     & Jeremy \\
+			Compressor             & Steve  \\
+			Reverb                 & Steve  \\
+			GUI                    & Nick   \\
+			Spectrum display       & Nick   \\
+			Enclosure and controls & Jeremy
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\caption{Milestones}
+		\label{tab:milestones}
+		\begin{tabular}{l|l}
+			Month     & Milestone                       \\ \hline
+			June      & Simple GUI, EQ                  \\
+			July      & Reverb, I2C with digipots       \\
+			August    & Compressor                      \\
+			September & Enclosure and Hardware complete \\
+			October   & Software fully functional       \\
+			November  & Debugging                      
+		\end{tabular}
+	\end{table}
+	
+	\section{Mentors and Resources}
+	Through this initial design phase, Dr. Erik Brunvand, Dr. Pierre-Emmanuel Gaillardon, and Dr. Angela Rassmussen have provided valuable advice. We anticipate needing more guidance from them during the construction phase. Adam Weinstein provided excellent critiques of our writing and we'll be sad to lose him as the TA---if in fact that is the case moving forward to Fall Semester. Drip Electronics provides support for assembling the compressor. There are many online forums that cover various aspects of our project and we anticipate utilizing them.
+	
+
+
 	
 	\section{Testing Plan}
 	The G9 is highly modular. Each piece can be tested on its own to ensure it functions correctly before attempting to combine all the elements together. GUI, CPU, FPGA, display, EQ, compressor, reverb will all be tested on their own. When each component is functioning correctly on its own, then the pieces will be connected together one-by-one and tested.
 	
 	\section{Demo}
-	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of an in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
+	A base demo of the G9 will consist of a sound playback device being plugged into the G9, and the output of the G9 will be plugged into a sound system. A separate room for the demo is desired since it might get loud. Each of the three sound processors will be demonstrated in turn by adjusting their parameters one by one on the GUI and listening to how the sound changes on the playback system. A more detailed demo will consist of an in-depth presentation of how the GUI, control system, analog processors, and information display all work together.
 	
 	
 	\section{Summary}
@@ -412,12 +452,12 @@
 	
 	The G9 processor consists of three audio filters. The first is a simple parametric equaliser that allows for 4 band selection.  We will be using the equaliser circuit as given by Elliott Sound Products~\cite{espEq}.  The second, a compressor circuit, uses tube amps and requires high voltages to utilize the amp.  We will be using the circuit from Drip Electronics~\cite{opto7}. The last filter is the reverb circuit  To create this circuit, we plan on using a hose to give a small delay to produce early reverb reflections, and then a spring to produce late reverb reflections.
 	
-	A Raspberry Pi W microprocessor (Rpi) will integrate each of the audio filters, a control server, and a frequency spectrum analyzer.  Hosting a server, the Rpi will control each of the audio filters as requested by a wireless GUI connected to it.  The filters can be controlled by using I2C communications with digital potentiometer ICs that are contained within.  C code that can run the necessary spectrum analysis, contained in the FFTW C library, will be running on the Rpi and providing its data to an HDMI driven display on the enclosure of the G9.  The spectrum analyzer will display the frequency spectrum to a 256-point resolution. We plan on completing the processor’s individual components over the summer and bringing everything together as fall semester begins. 
+	A Raspberry Pi W microprocessor will integrate each of the audio filters, a control server, and a frequency spectrum analyzer.  Hosting a server, the Rpi will control each of the audio filters as requested by a wireless GUI connected to it.  The filters can be controlled by using I2C communications with digital potentiometer ICs that are contained within.  C code that can run the necessary spectrum analysis, contained in the FFTW C library, will be running on the Rpi and providing its data to an HDMI driven display on the enclosure of the G9.  The spectrum analyzer will display the frequency spectrum to a 256-point resolution. We plan on completing the processor’s individual components over the summer and bringing everything together as fall semester begins. 
 	
 	
 	
 	\appendix
-	Tables \ref{tab:compressorParts} - \ref{tab:powerSupplies} list additional parts needed for the project. It is anticipated that more parts will be required as needed.
+	Tables \ref{tab:compressorParts} - \ref{tab:powerSupplies} list additional parts needed for the project. It is anticipated that more parts will be required as needed, but the ones listed include the vast majority of them. The main vendors for the parts will include Tube Depot, DigiKey, Mouser, and Arrow.
 	
 	
 	
@@ -541,7 +581,7 @@
 		\begin{tabular}{l|l}
 			Part                               & Qty. \\ \hline
 			HDMI 5" 800x480    & 1  \\
-			Raspberry Pi 0W    & 1  \\
+			Raspberry Pi Zero W    & 1  \\
 			Rotary Encoder     & 1  \\
 			MAX7219 LED driver & 1  \\
 			Red LED            & 4  \\
@@ -558,8 +598,8 @@
 		\caption{Power Supplies}
 		\label{tab:powerSupplies}
 		\begin{tabular}{l|l|l}
-						Part                    &           & Qty. \\ \hline
-			Model     & Manufacturer     & Notes          \\
+
+			Model     & Manufacturer     & Notes          \\\hline
 			CUT75-5FF & TDK Lambda       & +/- 15V, +5V    \\
 			ZPSA40-30 & TDK Lambda       & +30V           \\
 			Ultimate  & Drip Electronics & 6.3VAC, 550VAC \\
