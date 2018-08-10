@@ -1,0 +1,35 @@
+Stroke text generator: https://martenjacobs.github.io/LineFont/linefont.html  use futural font???
+Stroke text info: http://imajeenyus.com/computer/20150110_single_line_fonts/index.shtml 
+
+Cut text Red, engrave text Blue
+
+File->Place (ctrl-shift-p) to place the stroke text svg
+height: 0.1 in
+width: 0.5 in
+
+change grid ->  Edit > Preferences > Guides & Grid
+
+save as pdf
+
+For kerf...
+	One plastic coca-cola card will fit into the cut slot, two won't
+	One card measures 0.0115 inches
+	7 sheets of that lined paper. 0.02"
+	87 sheets: 0.25" -> 0.0028735632183908 per sheet -> x7 = 0.0201149425287356
+
+			Speed	Power	Current
+Acrylic with paper backing: thickness: 0.203 or 0.175 inches ~ 3/16 
+	cut:	15		90		90 ***** use this
+fail cut:	15		100		10
+			
+engrave:	100		15		15 ***** use this
+			100		10		100	very deep
+fail engrave: 100	5		10
+			100		10		10
+
+Wood: 
+	cut:	100		90		90 ***** use this
+fail cut:	100		40		40 didn't quite make it 
+
+engrave:	100		5		40	very deep, some points burned through
+
