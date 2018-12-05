@@ -4,27 +4,30 @@ class I2CClass:
 
     def __init__(self):
         channel = 1
-        bus = smbus.SMBus(channel)
-        EQ_BassLow_chip = 0x2C
-        EQ_High_chip = 0x2D
-        EQ_pass_chip = 0x28
-        break_10_chip = 0x2A
-        break_100_chip = 0x2B
-        break_M_12 = 0x2E
-        break_M_34 = 0x2F
+        self.bus = smbus.SMBus(channel)
+        self.EQ_BassLow_chip = 0x2C
+        self.EQ_High_chip = 0x2D
+        self.EQ_pass_chip = 0x28
+        self.break_10_chip = 0x2A
+        self.break_100_chip = 0x2B
+        self.break_M_12 = 0x2E
+        self.break_M_34 = 0x2F
 
     # pot is 0 for RDAC1, 1 for RDAC2
+    # its private, don't use it
     def MegpotI2C(self, chipAddress, pot, value):
         instruction = (pot << 7)    # pot is the MSB
         self.bus.write_i2c_block_data(chipAddress, instruction, [value])
 
     # pot is 0, 1, 2, or 3 for the respective RDAC
+    #its private, don't use it
     def KpotI2C(self, chipAddress, pot, value):
         instruction = 0x10 + pot
         self.bus.write_i2c_block_data(chipAddress, instruction, [value])
 
     # pot is 0, 1, 2, or 3 for the respective RDAC
-    # this function sets the startup value for the 5144
+    # this function sets the startup value for the 5144 chips
+    # its private, don't use it
     def KpotSetStarting(self, chipAddress, pot):
         instruction = 0x70 + pot
         self.bus.write_i2c_block_data(chipAddress, instruction, [0x01])
