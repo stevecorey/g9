@@ -28,7 +28,8 @@ class serialComm:
 
 
 def startThread(ser: serialComm):
-    t = threading.Thread(target= waitForData(ser))
+    t = threading.Thread(target= waitForData,
+                         args=(ser,))
 
 def waitForData(ser: serialComm):
     while 1:
