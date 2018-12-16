@@ -1,6 +1,9 @@
 Stroke text generator: https://martenjacobs.github.io/LineFont/linefont.html  use futural font???
 Stroke text info: http://imajeenyus.com/computer/20150110_single_line_fonts/index.shtml 
 
+To view used colors in Adobe Illustrator: Window->Swatches click in upper right menu -> Add Selected Colors
+	Then Select-All will show the colors in the swatches list
+
 Cut text Red, engrave text Blue
 
 File->Place (ctrl-shift-p) to place the stroke text svg
@@ -12,6 +15,8 @@ change grid ->  Edit > Preferences > Guides & Grid
 save as pdf
 
 For kerf...
+	Delvie's Plastics acrylic 0.236" (1/4") with paper backing on both sides: 0.015 kerf @ makeabox.io snug fit, too tight for big box. 0.02 is too tight, cracks.
+	kerf 0.008 seems good, 0.01 is still pretty tight
 	One plastic coca-cola card will fit into the cut slot, two won't
 	One card measures 0.0115 inches
 	7 sheets of that lined paper. 0.02"
@@ -19,10 +24,11 @@ For kerf...
 
 			Speed	Power	Current
 Acrylic with paper backing: thickness: 0.203 or 0.175 inches ~ 3/16 
-	cut:	15		90		90 ***** use this
+	cut:	25		90		90 ***** use this, works for Delvie's Plastics acrylic 0.236" (1/4") with paper backing on both sides
 fail cut:	15		100		10
 			
-engrave:	100		15		15 ***** use this
+engrave:	100		1		90 ***** use this (so as not to change the current from above, good vector engrave)
+			100		15		15  good engrave
 			100		10		100	very deep
 fail engrave: 100	5		10
 			100		10		10
@@ -32,4 +38,8 @@ Wood:
 fail cut:	100		40		40 didn't quite make it 
 
 engrave:	100		5		40	very deep, some points burned through
+
+Posterboard:
+	cut:	100		20		20
+engrave:	100		2		20
 
