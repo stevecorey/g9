@@ -288,3 +288,15 @@ __pycache__/
 *.xsd.cs
 
 desktop.ini
+
+# EAGLE backup files
+*.[sb]#?
+
+# laser cutter files, made from the .ai files
+laser/*.pdf
+laser/boxTests/*.pdf
+eagle.*
+enclosure/*.pdf
+Justin*
+mae.ai
+How to obtain*
