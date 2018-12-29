@@ -43,3 +43,6 @@ Posterboard:
 	cut:	100		20		20
 engrave:	100		2		20
 
+Maple 1/4":
+	cut:		100		90		90 lots of smoke!!! tried many passes of 100 10 10 but didn't have the patience to go beyond 5x. 100 20 20 had a bunch of smoke
+raster engrave:	100		15		10 dark, could probably go lower power/current 
